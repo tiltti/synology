@@ -27,10 +27,13 @@ Example script using my configuration:
 conf_id='o1390502566'
 conf_name='PIAOpenVPN'
 
+rundate=`date`
+
 if echo `ifconfig tun0` | grep -q "00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00"
 then
-        echo "VPN is running"
+        echo "$rundate: VPN is running"
     else
+        echo "$rundate: Uh, oh - VPN seems to be down :( Reconnecting...)"
         echo conf_id=$conf_id > /usr/syno/etc/synovpnclient/vpnc_connecting
         echo conf_name=$conf_name >> /usr/syno/etc/synovpnclient/vpnc_connecting
         echo proto=openvpn >> /usr/syno/etc/synovpnclient/vpnc_connecting
@@ -70,7 +73,14 @@ Example crontab (in /etc/crontab):
 
 ```
 */5	*	*	*	*	root	/root/openVPNreconnect.sh
-````
+```
+
+Since Synology doesn't log crontab executables by default (a longer story why), you can also redirect the script output to a logfile of your choosing if you want to follow up that the script is working. Doing it in crontab is the easiest:
+
+```
+*/5	*	*	*	*	root	/root/openVPNreconnect.sh >> /var/log/vpn_reconnect.log
+```
+
 **Please note that the spaces in between need to be tabs, not spaces, or DSM will remove the config considering it invalid! And do not touch the lines you are not sure what they do :)**
 
 Another test would be to disconnect this from the DSM GUI side and see that it reactivates after ~5 minutes. The downside is that there is no way to permanently deactivate the automatic VPN reconnection from the GUI side anymore, but you have to comment out the crontab if such a need arises. If anyone has suggestions how to do this otherwise, let me know.
