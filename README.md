@@ -8,16 +8,16 @@ This script is for OpenVPN only, but I'll add other protocols as well if you nee
 
 #### Installation
 
-You need to variables to be entered into the script. First one is VPN **client id** for the script, which is not available in the GUI of DSM. Second one is **client name** which you will find from the DSM GUI.
+You need to variables to be entered into the script. First one is VPN **conf_id** for the script, which is not available in the GUI of DSM. Second one is **conf_name** which you will find from the DSM GUI.
 
-Getting the VPN client id:
+Getting the VPN configuration id (conf_id):
 ```
 # ps -ef|grep client_o
 root       616     1  0 13:18 ?        00:00:00 /usr/sbin/openvpn --daemon --cd /usr/syno/etc/synovpnclient/openvpn --config client_o1390502566 --writepid /var/run/ovpn_client.pid
 root       645     1  0 13:18 ?        00:00:00 /usr/sbin/openvpn --daemon --cd /usr/syno/etc/synovpnclient/openvpn --config client_o1390502566 --writepid /var/run/ovpn_client.pid
 admin     2859 16399  0 13:21 pts/8    00:00:00 grep --color=auto client_o
 ```
-In this case your VPN cliend id would be **o1390502566**, and note that the first is letter o which is also needed.
+In this case your conf_id would be **o1390502566**, and note that the first is letter o which is also needed. The also needed conf_name is the name of the VPN configuration in your DSM GUI, so check it from there.
 
 Get the script and place it for instance into root's directory in /root:
 
