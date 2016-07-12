@@ -75,7 +75,9 @@ Example crontab (in /etc/crontab):
 */5	*	*	*	*	root	/root/openVPNreconnect.sh
 ```
 
-Since Synology doesn't log crontab executables by default (a longer story why), you can also redirect the script output to a logfile of your choosing if you want to follow up that the script is working. Doing it in crontab is the easiest:
+Since Synology doesn't log crontab executables by default. This is probably since BusyBox Synology is using logging to syslog by default, but then looking at the process list syslog daemon is run with -S parameter (Smaller logging output) that seems to remove the logging altogether. To go around this you can redirect the script output to a logfile of your choosing if you want to follow up that the script is working.
+
+Doing it in crontab is the easiest:
 
 ```
 */5	*	*	*	*	root	/root/openVPNreconnect.sh >> /var/log/vpn_reconnect.log
