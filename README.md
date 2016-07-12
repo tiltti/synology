@@ -21,16 +21,20 @@ In this case your conf_id would be **o1390502566**, and note that the first is l
 
 Get the script and place it for instance into root's directory in /root:
 
-Example script:
+Example script using my configuration:
+
 ```sh
+conf_id='o1390502566'
+conf_name='PIAOpenVPN'
+
 if echo `ifconfig tun0` | grep -q "00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00"
 then
-        echo "Everything OK: VPN seems to be running..."
-	else
-        echo conf_id=o1390502566 > /usr/syno/etc/synovpnclient/vpnc_connecting
-        echo conf_name=YOUR_VPN_NAME >> /usr/syno/etc/synovpnclient/vpnc_connecting
+        echo "VPN is running"
+    else
+        echo conf_id=$conf_id > /usr/syno/etc/synovpnclient/vpnc_connecting
+        echo conf_name=$conf_name >> /usr/syno/etc/synovpnclient/vpnc_connecting
         echo proto=openvpn >> /usr/syno/etc/synovpnclient/vpnc_connecting
-        /usr/syno/bin/synovpnc reconnect --protocol=openvpn --name=YOUR_VPN_NAME
+        /usr/syno/bin/synovpnc reconnect --protocol=openvpn --name=$conf_name
 fi
 exit 0
 ```
