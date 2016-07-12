@@ -77,7 +77,7 @@ Example crontab (in /etc/crontab):
 
 Since Synology doesn't log crontab executables by default. This is probably since BusyBox Synology is using logging to syslog by default, but then looking at the process list syslog daemon is run with -S parameter (Smaller logging output) that seems to remove the logging altogether. To go around this you can redirect the script output to a logfile of your choosing if you want to follow up that the script is working.
 
-Doing it in crontab is the easiest:
+Doing it in crontab is the easiest. The example logs to /var/log/vpn_reconnect.log obvously:
 
 ```
 */5	*	*	*	*	root	/root/openVPNreconnect.sh >> /var/log/vpn_reconnect.log
@@ -86,6 +86,3 @@ Doing it in crontab is the easiest:
 **Please note that the spaces in between need to be tabs, not spaces, or DSM will remove the config considering it invalid! And do not touch the lines you are not sure what they do :)**
 
 Another test would be to disconnect this from the DSM GUI side and see that it reactivates after ~5 minutes. The downside is that there is no way to permanently deactivate the automatic VPN reconnection from the GUI side anymore, but you have to comment out the crontab if such a need arises. If anyone has suggestions how to do this otherwise, let me know.
-
-A good source for many other DSM scripts:
-[Andreas Alveborn's github repositories](https://gist.github.com/aelveborn).
